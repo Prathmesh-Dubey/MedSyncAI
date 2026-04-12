@@ -16,34 +16,59 @@ export const DoctorDashboard: React.FC = () => {
     prescriptions: 0,
     medicines: 0
   });
-  const doctor = JSON.parse(localStorage.getItem('user') || '{}');
+
+  const doctor = (() => {
+    try { return JSON.parse(localStorage.getItem('user') || '{}'); }
+    catch { return {}; }
+  })();
+
+  // FIX 1: Handle multiple possible ID field names from login response
+  const doctorId: string = doctor.userId || doctor._id || doctor.id || doctor.doctorId || '';
 
   useEffect(() => {
+    if (!doctorId) {
+      console.warn('DoctorDashboard: No doctorId found in localStorage user object', doctor);
+      return;
+    }
+
     const fetchStats = async () => {
-      if (!doctor.doctorId) return;
       try {
-        const [patients, prescriptions, medicines] = await Promise.all([
-          patientApi.getPatientsByDoctor(doctor.doctorId),
-          prescriptionApi.getByDoctor(doctor.doctorId),
-          medicineApi.getByDoctor(doctor.doctorId)
+        const [patientsRes, prescriptionsRes, medicinesRes] = await Promise.all([
+          patientApi.getPatientsByDoctor(doctorId),
+          prescriptionApi.getByDoctor(doctorId),
+          medicineApi.getByDoctor(doctorId),
         ]);
+
+        // FIX 2: Axios returns response.data — your API likely returns the array
+        // directly, so patientsRes.data is already the array (not patientsRes.data.data)
+        const toArray = (res: any): any[] => {
+          const d = res?.data;
+          if (Array.isArray(d)) return d;               // API returns array directly
+          if (Array.isArray(d?.data)) return d.data;    // API returns { data: [...] }
+          if (Array.isArray(d?.patients)) return d.patients;
+          if (Array.isArray(d?.prescriptions)) return d.prescriptions;
+          if (Array.isArray(d?.medicines)) return d.medicines;
+          return [];
+        };
+
         setStats({
-          patients: patients.data.length || 0,
-          prescriptions: prescriptions.data.length || 0,
-          medicines: medicines.data.length || 0
+          patients:      toArray(patientsRes).length,
+          prescriptions: toArray(prescriptionsRes).length,
+          medicines:     toArray(medicinesRes).length,
         });
       } catch (err) {
         console.error('Failed to fetch stats', err);
       }
     };
+
     fetchStats();
-  }, [doctor.doctorId]);
+  }, [doctorId]);
 
   return (
     <div className="space-y-8">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-slate-900">Welcome, {doctor.name}</h1>
+          <h1 className="text-2xl font-bold text-slate-900">Welcome, {doctor.name || 'Doctor'}</h1>
           <p className="text-slate-500">Here's what's happening with your patients today</p>
         </div>
         <div className="flex space-x-3">
@@ -59,34 +84,34 @@ export const DoctorDashboard: React.FC = () => {
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-        <Card className="p-6 bg-emerald-600 text-white border-none">
+        <Card className="p-6 border-none" style={{ background: 'linear-gradient(135deg, #059669, #064e3b)' }}>
           <div className="flex items-center justify-between mb-4">
-            <div className="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center">
-              <Users size={20} />
+            <div className="w-11 h-11 rounded-xl flex items-center justify-center" style={{ background: 'rgba(255,255,255,0.25)' }}>
+              <Users size={22} color="#ffffff" strokeWidth={2.5} />
             </div>
           </div>
-          <p className="text-emerald-100 text-sm font-medium">Total Patients</p>
-          <h3 className="text-3xl font-bold mt-1">{stats.patients}</h3>
+          <p className="text-sm font-bold tracking-wide uppercase" style={{ color: '#a7f3d0' }}>Total Patients</p>
+          <h3 className="text-4xl font-extrabold mt-1" style={{ color: '#ffffff' }}>{stats.patients}</h3>
         </Card>
 
-        <Card className="p-6 bg-slate-800 text-white border-none">
+        <Card className="p-6 border-none" style={{ background: 'linear-gradient(135deg, #7c3aed, #3b0764)' }}>
           <div className="flex items-center justify-between mb-4">
-            <div className="w-10 h-10 bg-white/10 rounded-xl flex items-center justify-center">
-              <FileText size={20} />
+            <div className="w-11 h-11 rounded-xl flex items-center justify-center" style={{ background: 'rgba(255,255,255,0.25)' }}>
+              <FileText size={22} color="#ffffff" strokeWidth={2.5} />
             </div>
           </div>
-          <p className="text-slate-400 text-sm font-medium">Prescriptions Issued</p>
-          <h3 className="text-3xl font-bold mt-1">{stats.prescriptions}</h3>
+          <p className="text-sm font-bold tracking-wide uppercase" style={{ color: '#ddd6fe' }}>Prescriptions Issued</p>
+          <h3 className="text-4xl font-extrabold mt-1" style={{ color: '#ffffff' }}>{stats.prescriptions}</h3>
         </Card>
 
-        <Card className="p-6 bg-white border-slate-200">
+        <Card className="p-6 border-none" style={{ background: 'linear-gradient(135deg, #ea580c, #7c2d12)' }}>
           <div className="flex items-center justify-between mb-4">
-            <div className="w-10 h-10 bg-orange-50 rounded-xl flex items-center justify-center">
-              <Pill size={20} className="text-orange-600" />
+            <div className="w-11 h-11 rounded-xl flex items-center justify-center" style={{ background: 'rgba(255,255,255,0.25)' }}>
+              <Pill size={22} color="#ffffff" strokeWidth={2.5} />
             </div>
           </div>
-          <p className="text-slate-500 text-sm font-medium">Medicines Prescribed</p>
-          <h3 className="text-3xl font-bold text-slate-900 mt-1">{stats.medicines}</h3>
+          <p className="text-sm font-bold tracking-wide uppercase" style={{ color: '#fed7aa' }}>Medicines Prescribed</p>
+          <h3 className="text-4xl font-extrabold mt-1" style={{ color: '#ffffff' }}>{stats.medicines}</h3>
         </Card>
       </div>
 

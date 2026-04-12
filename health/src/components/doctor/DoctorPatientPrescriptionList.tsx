@@ -97,8 +97,7 @@ export const DoctorPatientPrescriptionList = () => {
                             onClick={() =>
                                 navigate(`/doctor/prescriptions/${p.prescriptionId}`)
                             }
-                        >
-
+                        >   
                             <div className="flex justify-between items-start">
 
                                 {/* LEFT */}

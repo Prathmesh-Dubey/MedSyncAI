@@ -8,8 +8,36 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
+        /* --- FLOATING AI BUTTON --- */
+        .ai-floating-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            /* Using a clinical Blue-to-Green gradient */
+            background: linear-gradient(135deg, #0ea5e9 0%, #10b981 100%);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+            z-index: 9999;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .ai-floating-btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.6);
+            color: white;
+        }
+
         /* --- PATIENT THEME ENGINE --- */
         :root {
             --bg-color: #0f172a;
@@ -170,13 +198,15 @@
         }
 
         /* Dynamic Input Styling */
-        .form-control, .form-select {
+        .form-control,
+        .form-select {
             background-color: var(--input-bg) !important;
             border: 1px solid var(--border-color);
             color: var(--text-main) !important;
         }
 
-        .form-control:disabled, .form-select:disabled {
+        .form-control:disabled,
+        .form-select:disabled {
             opacity: 0.6;
             cursor: not-allowed;
         }
@@ -375,27 +405,33 @@
                         <hr class="my-5 border-secondary">
 
                         <div>
-                            <div class="section-title text-danger"><i class="fas fa-shield-alt me-2"></i> Security Settings</div>
+                            <div class="section-title text-danger"><i class="fas fa-shield-alt me-2"></i> Security
+                                Settings</div>
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <label class="label">Confirm Phone Number</label>
-                                    <input type="text" id="confirmPhone" class="form-control" placeholder="Enter registered phone">
+                                    <input type="text" id="confirmPhone" class="form-control"
+                                        placeholder="Enter registered phone">
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label class="label">Confirm Email Address</label>
-                                    <input type="email" id="confirmEmail" class="form-control" placeholder="Enter registered email">
+                                    <input type="email" id="confirmEmail" class="form-control"
+                                        placeholder="Enter registered email">
                                 </div>
                                 <div class="col-md-12 mb-4">
                                     <label class="label">New Password</label>
                                     <div class="input-group">
-                                        <input type="password" id="newPassword" class="form-control" placeholder="Minimum 6 characters">
-                                        <button class="btn btn-outline-secondary border-start-0" type="button" onclick="togglePassword()" style="background-color: var(--input-bg);">
+                                        <input type="password" id="newPassword" class="form-control"
+                                            placeholder="Minimum 6 characters">
+                                        <button class="btn btn-outline-secondary border-start-0" type="button"
+                                            onclick="togglePassword()" style="background-color: var(--input-bg);">
                                             <i id="eyeIcon" class="fas fa-eye text-muted"></i>
                                         </button>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
-                                    <button class="btn btn-danger w-100 py-2 fw-bold" onclick="changePassword()" id="pwdBtn">
+                                    <button class="btn btn-danger w-100 py-2 fw-bold" onclick="changePassword()"
+                                        id="pwdBtn">
                                         Update Password
                                     </button>
                                 </div>
@@ -408,6 +444,9 @@
             </main>
         </div>
     </div>
+    <a href="/AI" class="ai-floating-btn" title="Ask Pratham AI">
+        <i class="fa-solid fa-heart-pulse"></i>
+    </a>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -468,7 +507,7 @@
                 document.getElementById("bloodGroup").value = p.bloodGroup || "";
                 document.getElementById("height").value = p.height || "";
                 document.getElementById("weight").value = p.weight || "";
-                
+
                 // Arrays to strings
                 document.getElementById("allergies").value = p.allergies ? p.allergies.join(", ") : "";
                 document.getElementById("chronicDiseases").value = p.chronicDiseases ? p.chronicDiseases.join(", ") : "";
@@ -510,7 +549,7 @@
             document.getElementById("saveBtn").classList.add("d-none");
             document.getElementById("cancelBtn").classList.add("d-none");
 
-            loadProfile(); 
+            loadProfile();
         }
 
         async function saveProfile() {
@@ -524,17 +563,17 @@
                 bloodGroup: document.getElementById("bloodGroup").value,
                 height: document.getElementById("height").value ? parseInt(document.getElementById("height").value) : null,
                 weight: document.getElementById("weight").value ? parseInt(document.getElementById("weight").value) : null,
-                
-                allergies: document.getElementById("allergies").value 
-                    ? document.getElementById("allergies").value.split(",").map(v => v.trim()).filter(v => v !== "") 
+
+                allergies: document.getElementById("allergies").value
+                    ? document.getElementById("allergies").value.split(",").map(v => v.trim()).filter(v => v !== "")
                     : [],
-                chronicDiseases: document.getElementById("chronicDiseases").value 
-                    ? document.getElementById("chronicDiseases").value.split(",").map(v => v.trim()).filter(v => v !== "") 
+                chronicDiseases: document.getElementById("chronicDiseases").value
+                    ? document.getElementById("chronicDiseases").value.split(",").map(v => v.trim()).filter(v => v !== "")
                     : [],
-                currentMedications: document.getElementById("currentMedications").value 
-                    ? document.getElementById("currentMedications").value.split(",").map(v => v.trim()).filter(v => v !== "") 
+                currentMedications: document.getElementById("currentMedications").value
+                    ? document.getElementById("currentMedications").value.split(",").map(v => v.trim()).filter(v => v !== "")
                     : [],
-                
+
                 phone: document.getElementById("phone").value.trim(),
                 emailAddress: document.getElementById("emailAddress").value.trim(),
                 residentialAddress: document.getElementById("residentialAddress").value.trim(),
@@ -607,24 +646,24 @@
                 };
 
                 const response = await axios.put("/api/patients/change-password", payload);
-                
+
                 msg.innerHTML = "<span class='text-success fw-bold'><i class='fas fa-check-circle'></i> Password updated successfully!</span>";
-                
+
                 // Clear fields on success
                 document.getElementById("newPassword").value = "";
                 document.getElementById("confirmPhone").value = "";
                 document.getElementById("confirmEmail").value = "";
-                
+
             } catch (error) {
                 console.error("Password change error:", error);
-                
+
                 // Attempt to extract the specific error message from the backend response
                 let errorMsg = "Failed to update password. Please check your details.";
                 if (error.response && error.response.data) {
                     // Sometimes spring returns a string, sometimes an object with a message field
                     errorMsg = typeof error.response.data === 'string' ? error.response.data : (error.response.data.message || errorMsg);
                 }
-                
+
                 msg.innerHTML = `<span class='text-danger'><i class='fas fa-times-circle'></i> ${errorMsg}</span>`;
             } finally {
                 // Unlock button
@@ -634,4 +673,5 @@
         }
     </script>
 </body>
+
 </html>

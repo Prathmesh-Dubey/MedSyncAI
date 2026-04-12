@@ -8,8 +8,35 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+
     <style>
+        /* --- FLOATING AI BUTTON --- */
+        .ai-floating-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            /* Using a clinical Blue-to-Green gradient */
+            background: linear-gradient(135deg, #0ea5e9 0%, #10b981 100%);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+            z-index: 9999;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .ai-floating-btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.6);
+            color: white;
+        }
+
         /* --- PRO DOCTOR THEME ENGINE --- */
         :root {
             color-scheme: dark light;
@@ -49,34 +76,95 @@
             background-color: var(--navbar-bg) !important;
             backdrop-filter: blur(10px);
             border-bottom: 1px solid var(--border-color);
-            position: fixed; top: 0; left: 0; right: 0; height: var(--navbar-height); z-index: 1030;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: var(--navbar-height);
+            z-index: 1030;
         }
 
         .sidebar {
             background-color: var(--sidebar-bg);
             border-right: 1px solid var(--border-color);
-            position: fixed; top: var(--navbar-height); bottom: 0; left: 0; width: 16.666667%;
-            overflow-y: auto; padding-top: 1.5rem; z-index: 100;
+            position: fixed;
+            top: var(--navbar-height);
+            bottom: 0;
+            left: 0;
+            width: 16.666667%;
+            overflow-y: auto;
+            padding-top: 1.5rem;
+            z-index: 100;
         }
 
-        main { margin-left: 16.666667%; width: 83.333333%; }
+        main {
+            margin-left: 16.666667%;
+            width: 83.333333%;
+        }
 
         @media (max-width: 767.98px) {
-            .sidebar { position: static; width: 100%; height: auto; border-right: none; }
-            main { margin-left: 0; width: 100%; }
+            .sidebar {
+                position: static;
+                width: 100%;
+                height: auto;
+                border-right: none;
+            }
+
+            main {
+                margin-left: 0;
+                width: 100%;
+            }
         }
 
         /* --- COMPONENTS --- */
-        .nav-link { color: var(--text-muted); font-weight: 500; padding: 12px 20px; margin: 8px 15px; border-radius: 10px; transition: 0.2s; }
-        .nav-link:hover { background: rgba(16, 185, 129, 0.1); color: var(--accent-primary); }
-        .nav-link.active { background: var(--accent-primary); color: #fff; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3); }
+        .nav-link {
+            color: var(--text-muted);
+            font-weight: 500;
+            padding: 12px 20px;
+            margin: 8px 15px;
+            border-radius: 10px;
+            transition: 0.2s;
+        }
 
-        .search-wrapper { position: relative; width: 400px; }
-        .search-wrapper input { background: var(--input-bg) !important; border: 1px solid var(--border-color); border-radius: 12px; color: var(--text-main) !important; padding-left: 45px; }
-        .search-wrapper .fa-search { position: absolute; left: 18px; top: 12px; color: var(--accent-primary); }
-        
-        .text-white-custom { color: var(--text-main) !important; }
-        .theme-toggle { cursor: pointer; color: var(--accent-primary); }
+        .nav-link:hover {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--accent-primary);
+        }
+
+        .nav-link.active {
+            background: var(--accent-primary);
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+        }
+
+        .search-wrapper {
+            position: relative;
+            width: 400px;
+        }
+
+        .search-wrapper input {
+            background: var(--input-bg) !important;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            color: var(--text-main) !important;
+            padding-left: 45px;
+        }
+
+        .search-wrapper .fa-search {
+            position: absolute;
+            left: 18px;
+            top: 12px;
+            color: var(--accent-primary);
+        }
+
+        .text-white-custom {
+            color: var(--text-main) !important;
+        }
+
+        .theme-toggle {
+            cursor: pointer;
+            color: var(--accent-primary);
+        }
 
         .stat-card {
             background: var(--card-bg);
@@ -110,13 +198,48 @@
 
         /* --- PRINT STYLES --- */
         @media print {
-            body { background-color: white !important; color: black !important; padding-top: 0 !important; }
-            .navbar, .sidebar, .btn, .theme-toggle, .page-header-actions { display: none !important; }
-            main { margin-left: 0 !important; width: 100% !important; padding: 0 !important; }
-            .stat-card { border: none !important; box-shadow: none !important; background: white !important; }
-            .form-control { border: 1px solid #ccc !important; background: transparent !important; color: black !important; }
-            .form-label, .text-white-custom { color: black !important; }
-            h2 { font-size: 24px !important; border-bottom: 2px solid black; padding-bottom: 10px;}
+            body {
+                background-color: white !important;
+                color: black !important;
+                padding-top: 0 !important;
+            }
+
+            .navbar,
+            .sidebar,
+            .btn,
+            .theme-toggle,
+            .page-header-actions {
+                display: none !important;
+            }
+
+            main {
+                margin-left: 0 !important;
+                width: 100% !important;
+                padding: 0 !important;
+            }
+
+            .stat-card {
+                border: none !important;
+                box-shadow: none !important;
+                background: white !important;
+            }
+
+            .form-control {
+                border: 1px solid #ccc !important;
+                background: transparent !important;
+                color: black !important;
+            }
+
+            .form-label,
+            .text-white-custom {
+                color: black !important;
+            }
+
+            h2 {
+                font-size: 24px !important;
+                border-bottom: 2px solid black;
+                padding-bottom: 10px;
+            }
         }
     </style>
 </head>
@@ -154,7 +277,9 @@
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end shadow border-0" style="background: var(--card-bg);">
                             <li><a class="dropdown-item text-secondary" href="/doctor/home">My Profile</a></li>
-                            <li><hr class="dropdown-divider bg-secondary"></li>
+                            <li>
+                                <hr class="dropdown-divider bg-secondary">
+                            </li>
                             <li><a class="dropdown-item text-danger" href="/" onclick="logout()">Logout</a></li>
                         </ul>
                     </li>
@@ -165,23 +290,31 @@
 
     <div class="container-fluid">
         <div class="row">
-            
+
             <nav class="col-md-2 sidebar px-0">
                 <ul class="nav flex-column">
-                    <li class="nav-item"><a class="nav-link" href="/doctor/dashboard"><i class="fas fa-chart-line me-2"></i> Overview</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/doctor/clinics"><i class="fas fa-hospital me-2"></i> Clinic</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/doctor/patients"><i class="fas fa-user-injured me-2"></i> My Patients</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/doctor/tests"><i class="fas fa-vials me-2"></i>Medical Tests</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/doctor/view-prescription"><i class="fas fa-file-prescription me-2"></i> Prescriptions</a></li>
-                    <li class="nav-item"><a class="nav-link active" href="/doctor/medicine"><i class="fas fa-pills me-2"></i>Inventory</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/doctor/dashboard"><i
+                                class="fas fa-chart-line me-2"></i> Overview</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/doctor/clinics"><i class="fas fa-hospital me-2"></i>
+                            Clinic</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/doctor/patients"><i
+                                class="fas fa-user-injured me-2"></i> My Patients</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/doctor/tests"><i
+                                class="fas fa-vials me-2"></i>Medical Tests</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/doctor/view-prescription"><i
+                                class="fas fa-file-prescription me-2"></i> Prescriptions</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="/doctor/medicine"><i
+                                class="fas fa-pills me-2"></i>Inventory</a></li>
                 </ul>
             </nav>
 
             <main class="col-md-10 py-4 px-4">
-                
-                <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-3" style="border-color: var(--border-color) !important;">
+
+                <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-3"
+                    style="border-color: var(--border-color) !important;">
                     <div>
-                        <h2 class="fw-bold mb-0 text-white-custom"><i class="fas fa-capsules text-success me-2"></i> Add Medicine</h2>
+                        <h2 class="fw-bold mb-0 text-white-custom"><i class="fas fa-capsules text-success me-2"></i> Add
+                            Medicine</h2>
                         <p class="text-secondary mb-0 mt-1">Register a new medication into the system catalog.</p>
                     </div>
                     <div class="d-flex gap-2 page-header-actions">
@@ -196,13 +329,15 @@
 
                 <div class="card stat-card p-4 mb-5">
                     <form id="medicineForm">
-                        
-                        <h5 class="text-white-custom fw-bold border-bottom pb-2 mb-4" style="border-color: var(--border-color) !important;">General Information</h5>
-                        
+
+                        <h5 class="text-white-custom fw-bold border-bottom pb-2 mb-4"
+                            style="border-color: var(--border-color) !important;">General Information</h5>
+
                         <div class="row g-4 mb-4">
                             <div class="col-md-6">
                                 <label class="form-label">Medicine Name <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="medicineName" placeholder="e.g. Amoxicillin 500mg" required>
+                                <input type="text" class="form-control" id="medicineName"
+                                    placeholder="e.g. Amoxicillin 500mg" required>
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label">Company Name</label>
@@ -210,7 +345,8 @@
                             </div>
                         </div>
 
-                        <h5 class="text-white-custom fw-bold border-bottom pb-2 mb-4 mt-5" style="border-color: var(--border-color) !important;">Administration Details</h5>
+                        <h5 class="text-white-custom fw-bold border-bottom pb-2 mb-4 mt-5"
+                            style="border-color: var(--border-color) !important;">Administration Details</h5>
 
                         <div class="row g-4 mb-4">
                             <div class="col-md-3 col-sm-6">
@@ -231,13 +367,15 @@
                             </div>
                         </div>
 
-                        <h5 class="text-white-custom fw-bold border-bottom pb-2 mb-4 mt-5" style="border-color: var(--border-color) !important;">Pricing & Schedule</h5>
+                        <h5 class="text-white-custom fw-bold border-bottom pb-2 mb-4 mt-5"
+                            style="border-color: var(--border-color) !important;">Pricing & Schedule</h5>
 
                         <div class="row g-4 mb-4">
                             <div class="col-md-4">
                                 <label class="form-label">Price</label>
                                 <div class="input-group">
-                                    <span class="input-group-text bg-secondary bg-opacity-25 border-secondary text-white-custom">₹</span>
+                                    <span
+                                        class="input-group-text bg-secondary bg-opacity-25 border-secondary text-white-custom">₹</span>
                                     <input type="number" step="0.01" class="form-control" id="price" placeholder="0.00">
                                 </div>
                             </div>
@@ -251,15 +389,19 @@
                             </div>
                         </div>
 
-                        <h5 class="text-white-custom fw-bold border-bottom pb-2 mb-4 mt-5" style="border-color: var(--border-color) !important;">Additional Information</h5>
+                        <h5 class="text-white-custom fw-bold border-bottom pb-2 mb-4 mt-5"
+                            style="border-color: var(--border-color) !important;">Additional Information</h5>
 
                         <div class="mb-4">
                             <label class="form-label">Special Instructions</label>
-                            <textarea class="form-control" id="specialInstructions" rows="3" placeholder="Add any specific dietary or administration warnings here..."></textarea>
+                            <textarea class="form-control" id="specialInstructions" rows="3"
+                                placeholder="Add any specific dietary or administration warnings here..."></textarea>
                         </div>
 
-                        <div class="d-flex justify-content-end mt-4 pt-3 border-top" style="border-color: var(--border-color) !important;">
-                            <button type="button" class="btn btn-outline-secondary px-4 me-2" onclick="window.history.back()">Cancel</button>
+                        <div class="d-flex justify-content-end mt-4 pt-3 border-top"
+                            style="border-color: var(--border-color) !important;">
+                            <button type="button" class="btn btn-outline-secondary px-4 me-2"
+                                onclick="window.history.back()">Cancel</button>
                             <button type="submit" class="btn btn-success px-5 fw-bold shadow-sm">
                                 <i class="fas fa-save me-2"></i> Add Medicine
                             </button>
@@ -271,6 +413,9 @@
             </main>
         </div>
     </div>
+    <a href="/doctor/AI" class="ai-floating-btn" title="Ask Pratham AI">
+        <i class="fas fa-stethoscope"></i>
+    </a>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -335,8 +480,8 @@
                 document.getElementById("frequency").value = med.frequency || "";
                 document.getElementById("duration").value = med.duration || "";
                 document.getElementById("price").value = med.price || "";
-                document.getElementById("startDate").value = med.startDate ? med.startDate.substring(0,16) : "";
-                document.getElementById("endDate").value = med.endDate ? med.endDate.substring(0,16) : "";
+                document.getElementById("startDate").value = med.startDate ? med.startDate.substring(0, 16) : "";
+                document.getElementById("endDate").value = med.endDate ? med.endDate.substring(0, 16) : "";
                 document.getElementById("specialInstructions").value = med.specialInstructions || "";
 
             } catch (error) {
@@ -402,4 +547,5 @@
         });
     </script>
 </body>
+
 </html>

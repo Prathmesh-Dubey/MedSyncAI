@@ -10,6 +10,60 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
+        /* --- FLOATING AI BUTTON --- */
+        .ai-floating-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            /* Using a clinical Blue-to-Green gradient */
+            background: linear-gradient(135deg, #0ea5e9 0%, #10b981 100%);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+            z-index: 9999;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .ai-floating-btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.6);
+            color: white;
+        }
+
+        /* --- FLOATING AI BUTTON --- */
+        .ai-floating-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            /* Using a clinical Blue-to-Green gradient */
+            background: linear-gradient(135deg, #0ea5e9 0%, #10b981 100%);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+            z-index: 9999;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .ai-floating-btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.6);
+            color: white;
+        }
+
         /* --- PRO DOCTOR THEME ENGINE --- */
         :root {
             color-scheme: dark light;
@@ -49,34 +103,95 @@
             background-color: var(--navbar-bg) !important;
             backdrop-filter: blur(10px);
             border-bottom: 1px solid var(--border-color);
-            position: fixed; top: 0; left: 0; right: 0; height: var(--navbar-height); z-index: 1030;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: var(--navbar-height);
+            z-index: 1030;
         }
 
         .sidebar {
             background-color: var(--sidebar-bg);
             border-right: 1px solid var(--border-color);
-            position: fixed; top: var(--navbar-height); bottom: 0; left: 0; width: 16.666667%;
-            overflow-y: auto; padding-top: 1.5rem; z-index: 100;
+            position: fixed;
+            top: var(--navbar-height);
+            bottom: 0;
+            left: 0;
+            width: 16.666667%;
+            overflow-y: auto;
+            padding-top: 1.5rem;
+            z-index: 100;
         }
 
-        main { margin-left: 16.666667%; width: 83.333333%; }
+        main {
+            margin-left: 16.666667%;
+            width: 83.333333%;
+        }
 
         @media (max-width: 767.98px) {
-            .sidebar { position: static; width: 100%; height: auto; border-right: none; }
-            main { margin-left: 0; width: 100%; }
+            .sidebar {
+                position: static;
+                width: 100%;
+                height: auto;
+                border-right: none;
+            }
+
+            main {
+                margin-left: 0;
+                width: 100%;
+            }
         }
 
         /* --- COMPONENTS --- */
-        .nav-link { color: var(--text-muted); font-weight: 500; padding: 12px 20px; margin: 8px 15px; border-radius: 10px; transition: 0.2s; }
-        .nav-link:hover { background: rgba(16, 185, 129, 0.1); color: var(--accent-primary); }
-        .nav-link.active { background: var(--accent-primary); color: #fff; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3); }
+        .nav-link {
+            color: var(--text-muted);
+            font-weight: 500;
+            padding: 12px 20px;
+            margin: 8px 15px;
+            border-radius: 10px;
+            transition: 0.2s;
+        }
 
-        .search-wrapper { position: relative; width: 400px; }
-        .search-wrapper input { background: var(--input-bg) !important; border: 1px solid var(--border-color); border-radius: 12px; color: var(--text-main) !important; padding-left: 45px; }
-        .search-wrapper .fa-search { position: absolute; left: 18px; top: 12px; color: var(--accent-primary); }
-        
-        .text-white-custom { color: var(--text-main) !important; }
-        .theme-toggle { cursor: pointer; color: var(--accent-primary); }
+        .nav-link:hover {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--accent-primary);
+        }
+
+        .nav-link.active {
+            background: var(--accent-primary);
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+        }
+
+        .search-wrapper {
+            position: relative;
+            width: 400px;
+        }
+
+        .search-wrapper input {
+            background: var(--input-bg) !important;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            color: var(--text-main) !important;
+            padding-left: 45px;
+        }
+
+        .search-wrapper .fa-search {
+            position: absolute;
+            left: 18px;
+            top: 12px;
+            color: var(--accent-primary);
+        }
+
+        .text-white-custom {
+            color: var(--text-main) !important;
+        }
+
+        .theme-toggle {
+            cursor: pointer;
+            color: var(--accent-primary);
+        }
 
         .stat-card {
             background: var(--card-bg);
@@ -91,12 +206,12 @@
             --bs-table-bg: transparent;
             --bs-table-color: var(--text-main);
             --bs-table-border-color: var(--border-color);
-            --bs-table-hover-bg: rgba(255,255,255,0.02);
+            --bs-table-hover-bg: rgba(255, 255, 255, 0.02);
             --bs-table-hover-color: var(--text-main);
         }
-        
+
         [data-bs-theme="light"] .table {
-            --bs-table-hover-bg: rgba(0,0,0,0.02);
+            --bs-table-hover-bg: rgba(0, 0, 0, 0.02);
         }
 
         .form-control {
@@ -104,12 +219,16 @@
             border: 1px solid var(--border-color);
             color: var(--text-main) !important;
         }
+
         .form-control:focus {
             border-color: var(--accent-primary);
             box-shadow: 0 0 0 0.25rem rgba(16, 185, 129, 0.15);
         }
 
-        .badge-active { background-color: rgba(16, 185, 129, 0.15); color: #10b981; }
+        .badge-active {
+            background-color: rgba(16, 185, 129, 0.15);
+            color: #10b981;
+        }
     </style>
 </head>
 
@@ -146,7 +265,9 @@
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end shadow border-0" style="background: var(--card-bg);">
                             <li><a class="dropdown-item text-secondary" href="/doctor/home">My Profile</a></li>
-                            <li><hr class="dropdown-divider bg-secondary"></li>
+                            <li>
+                                <hr class="dropdown-divider bg-secondary">
+                            </li>
                             <li><a class="dropdown-item text-danger" href="#" onclick="logout()">Logout</a></li>
                         </ul>
                     </li>
@@ -157,23 +278,31 @@
 
     <div class="container-fluid">
         <div class="row">
-            
+
             <nav class="col-md-2 sidebar px-0">
                 <ul class="nav flex-column">
-                    <li class="nav-item"><a class="nav-link" href="/doctor/dashboard"><i class="fas fa-chart-line me-2"></i> Overview</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/doctor/clinics"><i class="fas fa-hospital me-2"></i> Clinic</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/doctor/patients"><i class="fas fa-user-injured me-2"></i> My Patients</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/doctor/tests"><i class="fas fa-vials me-2"></i> Medical Tests</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/doctor/view-prescription"><i class="fas fa-file-prescription me-2"></i> Prescriptions</a></li>
-                    <li class="nav-item"><a class="nav-link active" href="/doctor/medicine"><i class="fas fa-box-open me-2"></i> Inventory</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/doctor/dashboard"><i
+                                class="fas fa-chart-line me-2"></i> Overview</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/doctor/clinics"><i class="fas fa-hospital me-2"></i>
+                            Clinic</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/doctor/patients"><i
+                                class="fas fa-user-injured me-2"></i> My Patients</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/doctor/tests"><i class="fas fa-vials me-2"></i>
+                            Medical Tests</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/doctor/view-prescription"><i
+                                class="fas fa-file-prescription me-2"></i> Prescriptions</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="/doctor/medicine"><i
+                                class="fas fa-box-open me-2"></i> Inventory</a></li>
                 </ul>
             </nav>
 
             <main class="col-md-10 py-4 px-4">
-                
-                <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-3" style="border-color: var(--border-color) !important;">
+
+                <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-3"
+                    style="border-color: var(--border-color) !important;">
                     <div>
-                        <h2 class="fw-bold mb-0 text-white-custom"><i class="fas fa-pills text-success me-2"></i> My Medicines</h2>
+                        <h2 class="fw-bold mb-0 text-white-custom"><i class="fas fa-pills text-success me-2"></i> My
+                            Medicines</h2>
                         <p class="text-secondary mb-0 mt-1">Manage and search your medication inventory.</p>
                     </div>
                     <div>
@@ -186,7 +315,8 @@
                 <div class="card stat-card p-3 mb-4">
                     <div class="row g-2">
                         <div class="col-md-4">
-                            <input type="text" id="filterName" class="form-control" placeholder="Filter by Medicine Name">
+                            <input type="text" id="filterName" class="form-control"
+                                placeholder="Filter by Medicine Name">
                         </div>
                         <div class="col-md-4">
                             <input type="text" id="filterCompany" class="form-control" placeholder="Filter by Company">
@@ -232,6 +362,9 @@
             </main>
         </div>
     </div>
+    <a href="/doctor/AI" class="ai-floating-btn" title="Ask Pratham AI">
+        <i class="fas fa-stethoscope"></i>
+    </a>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -294,7 +427,7 @@
             try {
                 const response = await fetch(url);
                 allMedicines = await response.json();
-                
+
                 renderMedicines(allMedicines);
 
             } catch (error) {
@@ -312,7 +445,7 @@
             const filtered = allMedicines.filter(med => {
                 const matchName = (med.medicineName || med.name || "").toLowerCase().includes(nameVal);
                 const matchCompany = (med.companyName || "").toLowerCase().includes(companyVal);
-                
+
                 let matchPrice = true;
                 if (priceVal !== "") {
                     matchPrice = (med.price || 0) <= parseFloat(priceVal);
@@ -396,4 +529,5 @@
         }
     </script>
 </body>
+
 </html>

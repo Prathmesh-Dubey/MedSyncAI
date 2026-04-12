@@ -18,35 +18,37 @@ export const ForgotPasswordPage: React.FC = () => {
     e.preventDefault();
     setMessage(null);
 
-    let apiUrl = '';
-    let method = 'POST';
+    // doctor → PUT, admin → POST, patient → PUT
+    const config: Record<Role, { url: string; method: string }> = {
+      doctor:  { url: 'http://localhost:8080/api/doctors/reset-password',  method: 'PUT'  },
+      admin:   { url: 'http://localhost:8080/api/admins/reset-password',   method: 'POST' },
+      patient: { url: 'http://localhost:8080/api/patients/reset-password', method: 'PUT'  },
+    };
 
-    if (role === 'doctor') {
-      apiUrl = 'http://localhost:8080/api/doctors/reset-password';
-      method = 'PUT';
-    } else if (role === 'admin') {
-      apiUrl = 'http://localhost:8080/api/admins/reset-password';
-      method = 'POST';
-    } else {
-      apiUrl = 'http://localhost:8080/api/patients/reset-password';
-      method = 'PUT';
-    }
+    const { url, method } = config[role];
 
     setIsLoading(true);
     try {
-      const response = await fetch(apiUrl, {
+      const response = await fetch(url, {
         method,
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, phone, newPassword }),
       });
 
       const result = await response.text();
-      if (!response.ok) throw new Error(result);
+
+      if (!response.ok) {
+        // Show the actual server error message so user knows what's wrong
+        throw new Error(result || `Server error (${response.status})`);
+      }
 
       setMessage({ type: 'success', text: 'Password reset successful. Redirecting to login...' });
       setTimeout(() => navigate('/'), 1500);
     } catch (err: any) {
-      setMessage({ type: 'error', text: err.message || 'Password reset failed. Please check your details.' });
+      setMessage({
+        type: 'error',
+        text: err.message || 'Password reset failed. Please check your details.',
+      });
     } finally {
       setIsLoading(false);
     }
@@ -86,7 +88,7 @@ export const ForgotPasswordPage: React.FC = () => {
                   <button
                     key={r}
                     type="button"
-                    onClick={() => setRole(r)}
+                    onClick={() => { setRole(r); setMessage(null); }}
                     className={`flex-1 py-2 rounded-lg text-sm font-medium transition-all ${
                       role === r ? 'bg-white shadow-sm text-slate-900' : 'text-slate-500 hover:text-slate-700'
                     }`}
@@ -103,9 +105,14 @@ export const ForgotPasswordPage: React.FC = () => {
               <div className="relative">
                 <Phone size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
                 <input
-                  type="tel" value={phone} onChange={e => setPhone(e.target.value)} required
+                  type="tel"
+                  value={phone}
+                  onChange={e => setPhone(e.target.value)}
+                  required
                   placeholder="Enter registered phone"
-                  className="w-full pl-9 pr-4 py-2.5 border border-slate-300 rounded-lg text-sm outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 hover:border-slate-400 transition"
+                  className="w-full pl-9 pr-4 py-2.5 border border-slate-300 rounded-lg text-sm outline-none
+                             focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500
+                             hover:border-slate-400 transition"
                 />
               </div>
             </div>
@@ -116,9 +123,14 @@ export const ForgotPasswordPage: React.FC = () => {
               <div className="relative">
                 <Mail size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
                 <input
-                  type="email" value={email} onChange={e => setEmail(e.target.value)} required
+                  type="email"
+                  value={email}
+                  onChange={e => setEmail(e.target.value)}
+                  required
                   placeholder="Enter registered email"
-                  className="w-full pl-9 pr-4 py-2.5 border border-slate-300 rounded-lg text-sm outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 hover:border-slate-400 transition"
+                  className="w-full pl-9 pr-4 py-2.5 border border-slate-300 rounded-lg text-sm outline-none
+                             focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500
+                             hover:border-slate-400 transition"
                 />
               </div>
             </div>
@@ -129,13 +141,21 @@ export const ForgotPasswordPage: React.FC = () => {
               <div className="relative">
                 <Lock size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
                 <input
-                  type={showPassword ? 'text' : 'password'} value={newPassword}
-                  onChange={e => setNewPassword(e.target.value)} required
+                  type={showPassword ? 'text' : 'password'}
+                  value={newPassword}
+                  onChange={e => setNewPassword(e.target.value)}
+                  required
+                  minLength={6}
                   placeholder="Enter new password"
-                  className="w-full pl-9 pr-10 py-2.5 border border-slate-300 rounded-lg text-sm outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 hover:border-slate-400 transition"
+                  className="w-full pl-9 pr-10 py-2.5 border border-slate-300 rounded-lg text-sm outline-none
+                             focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500
+                             hover:border-slate-400 transition"
                 />
-                <button type="button" onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600">
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
+                >
                   {showPassword ? <EyeOff size={15} /> : <Eye size={15} />}
                 </button>
               </div>
@@ -143,15 +163,24 @@ export const ForgotPasswordPage: React.FC = () => {
 
             {/* Message */}
             {message && (
-              <p className={`text-sm text-center font-medium ${message.type === 'success' ? 'text-emerald-600' : 'text-red-500'}`}>
+              <div className={`px-4 py-3 rounded-lg text-sm font-medium text-center ${
+                message.type === 'success'
+                  ? 'bg-emerald-50 text-emerald-700 border border-emerald-100'
+                  : 'bg-red-50 text-red-600 border border-red-100'
+              }`}>
                 {message.text}
-              </p>
+              </div>
             )}
 
             {/* Submit */}
-            <button type="submit" disabled={isLoading}
-              className={`w-full flex items-center justify-center gap-2 py-2.5 ${roleColors[role]} text-white text-sm font-semibold rounded-lg hover:opacity-90 disabled:opacity-60 transition`}>
-              {isLoading ? <Loader2 size={16} className="animate-spin" /> : null}
+            <button
+              type="submit"
+              disabled={isLoading}
+              className={`w-full flex items-center justify-center gap-2 py-2.5
+                         ${roleColors[role]} text-white text-sm font-semibold rounded-lg
+                         hover:opacity-90 disabled:opacity-60 transition`}
+            >
+              {isLoading && <Loader2 size={16} className="animate-spin" />}
               {isLoading ? 'Resetting...' : 'Reset Password'}
             </button>
 

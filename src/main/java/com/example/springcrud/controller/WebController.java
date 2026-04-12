@@ -104,6 +104,7 @@ public class WebController {
         model.addAttribute("activeTab", "patients");
         return "admin/patients-add";
     }
+
     @GetMapping("/forgot-password")
     public String forgotPasswordPage() {
         return "forgot-password";
@@ -113,10 +114,21 @@ public class WebController {
     public String registerPage() {
         return "createAccount";
     }
+
     @GetMapping("/admin/contactSupport")
     public String contactSupportPage(Model model) {
         model.addAttribute("pageTitle", "Contact Support");
         model.addAttribute("activeTab", "contactSupport");
         return "admin/contactSupport";
+    }
+
+    @GetMapping("/doctor/AI") // ← opens at http://localhost:8080/
+    public String home() {
+        return "PrathmAi"; // ← Spring looks for this file in /static/
+    }
+
+    @GetMapping("/AI") // ← opens at http://localhost:8080/
+    public String Ai() {
+        return "PrathmAi"; // ← Spring looks for this file in /static/
     }
 }

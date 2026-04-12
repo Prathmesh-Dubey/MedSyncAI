@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { 
   LayoutDashboard, Users, Stethoscope, Building2, Pill, 
-  TestTube, FileText, LogOut, Activity, Menu, X, Sun, Moon
+  TestTube, FileText, LogOut, Activity, Menu, X, Sun, Moon, Bot
 } from 'lucide-react';
 import { Button } from './UI';
 
@@ -91,7 +91,6 @@ export const DashboardLayout: React.FC<{ children: React.ReactNode }> = ({ child
   const displayName = user.username || user.name || user.fullName || role;
   const initials = displayName.split(' ').map((n: string) => n[0]).join('').toUpperCase().slice(0, 2);
 
-  // Dynamic classes based on dark mode
   const sidebarBg    = isDark ? 'bg-slate-800 border-slate-700' : 'bg-white border-slate-200';
   const mainBg       = isDark ? 'bg-slate-900' : 'bg-slate-50';
   const logoText     = isDark ? 'text-white' : 'text-slate-900';
@@ -112,7 +111,6 @@ export const DashboardLayout: React.FC<{ children: React.ReactNode }> = ({ child
         {isDark ? <Sun size={20} /> : <Moon size={20} />}
         <span>{isDark ? 'Light Mode' : 'Dark Mode'}</span>
       </div>
-      {/* Toggle pill */}
       <div className={`w-10 h-5 rounded-full transition-colors duration-300 flex items-center px-0.5 ${
         isDark ? 'bg-emerald-500' : 'bg-slate-300'
       }`}>
@@ -172,6 +170,17 @@ export const DashboardLayout: React.FC<{ children: React.ReactNode }> = ({ child
             </div>
           </button>
 
+          {/* AI Assistant Button */}
+          <Button
+            variant="ghost"
+            className="w-full justify-start text-violet-500 hover:bg-violet-500/10 hover:text-violet-400 mb-1"
+            onClick={() => navigate('/AI')}
+          >
+            <Bot size={20} className="mr-3" />
+            AI Assistant
+          </Button>
+
+          {/* Logout */}
           <Button
             variant="ghost"
             className="w-full justify-start text-red-500 hover:bg-red-500/10 hover:text-red-400"
@@ -190,7 +199,6 @@ export const DashboardLayout: React.FC<{ children: React.ReactNode }> = ({ child
           <span className={`font-bold ${mobileText}`}>HealthCare</span>
         </div>
         <div className="flex items-center gap-3">
-          {/* Mobile theme toggle icon */}
           <button onClick={toggleTheme} className={`p-1.5 rounded-lg transition ${isDark ? 'text-slate-400 hover:text-white' : 'text-slate-500 hover:text-slate-900'}`}>
             {isDark ? <Sun size={18} /> : <Moon size={18} />}
           </button>
@@ -227,6 +235,17 @@ export const DashboardLayout: React.FC<{ children: React.ReactNode }> = ({ child
               <span>My Profile</span>
             </button>
 
+            {/* AI Assistant Button */}
+            <Button
+              variant="ghost"
+              className="w-full justify-start text-violet-500 hover:bg-violet-500/10 hover:text-violet-400"
+              onClick={() => { navigate('/AI'); setIsMobileMenuOpen(false); }}
+            >
+              <Bot size={20} className="mr-3" />
+              AI Assistant
+            </Button>
+
+            {/* Logout */}
             <Button
               variant="ghost"
               className="w-full justify-start text-red-500 mt-2"
