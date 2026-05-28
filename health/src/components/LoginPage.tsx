@@ -50,7 +50,7 @@ export const LoginPage: React.FC = () => {
           <div className="w-12 h-12 bg-emerald-100 rounded-2xl flex items-center justify-center mb-4">
             <Activity className="text-emerald-600 w-8 h-8" />
           </div>
-          <h1 className="text-2xl font-bold text-slate-900">HealthCare Connect</h1>
+          <h1 className="text-2xl font-bold text-slate-900">MEDSYNC</h1>
           <p className="text-slate-500 text-sm">Welcome back, please login to your account</p>
         </div>
 
