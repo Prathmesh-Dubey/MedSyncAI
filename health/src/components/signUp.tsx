@@ -48,7 +48,7 @@ export const SignupPage: React.FC = () => {
     let payload: any = {};
 
     if (role === 'doctor') {
-      apiUrl = 'http://localhost:8080/api/doctors';
+      apiUrl = 'https://medsyncaidatabase.onrender.com/api/doctors';
       payload = {
         name: doctorName,
         specialization,
@@ -59,7 +59,7 @@ export const SignupPage: React.FC = () => {
         password,
       };
     } else {
-      apiUrl = 'http://localhost:8080/api/patients';
+      apiUrl = 'https://medsyncaidatabase.onrender.com/api/patients';
       payload = {
         fullName: patientName,
         gender,

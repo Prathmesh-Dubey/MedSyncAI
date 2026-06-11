@@ -37,7 +37,7 @@ export const AdminProfile: React.FC = () => {
     if (!adminId) { navigate('/'); return; }
     setIsLoading(true);
     try {
-      const res = await fetch(`http://localhost:8080/api/admins/profile/${adminId}`);
+      const res = await fetch(`https://medsyncaidatabase.onrender.com/api/admins/profile/${adminId}`);
       if (!res.ok) throw new Error('Admin not found');
       const data = await res.json();
       setAdmin(data);
@@ -59,7 +59,7 @@ export const AdminProfile: React.FC = () => {
     }
     setPwdLoading(true);
     try {
-      const res = await fetch('http://localhost:8080/api/admins/change-password', {
+      const res = await fetch('https://medsyncaidatabase.onrender.com/api/admins/change-password', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ adminId, oldPassword, newPassword }),

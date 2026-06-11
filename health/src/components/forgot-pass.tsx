@@ -20,9 +20,9 @@ export const ForgotPasswordPage: React.FC = () => {
 
     // doctor → PUT, admin → POST, patient → PUT
     const config: Record<Role, { url: string; method: string }> = {
-      doctor:  { url: 'http://localhost:8080/api/doctors/reset-password',  method: 'PUT'  },
-      admin:   { url: 'http://localhost:8080/api/admins/reset-password',   method: 'POST' },
-      patient: { url: 'http://localhost:8080/api/patients/reset-password', method: 'PUT'  },
+      doctor:  { url: 'https://medsyncaidatabase.onrender.com/api/doctors/reset-password',  method: 'PUT'  },
+      admin:   { url: 'https://medsyncaidatabase.onrender.com/api/admins/reset-password',   method: 'POST' },
+      patient: { url: 'https://medsyncaidatabase.onrender.com/api/patients/reset-password', method: 'PUT'  },
     };
 
     const { url, method } = config[role];

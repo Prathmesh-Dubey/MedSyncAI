@@ -25,7 +25,7 @@ export const PatientDashboard: React.FC = () => {
       if (!patientId) return;
 
       try {
-        const res = await fetch(`http://localhost:8080/api/patients/by-patient-id/${patientId}`);
+        const res = await fetch(`https://medsyncaidatabase.onrender.com/api/patients/by-patient-id/${patientId}`);
         const data = await res.json();
 
         setPatient(data);

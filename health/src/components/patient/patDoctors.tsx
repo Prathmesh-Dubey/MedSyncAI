@@ -22,7 +22,7 @@ export const PatDoctorList: React.FC = () => {
 
   const fetchDoctors = () => {
     setIsLoading(true);
-    fetch("http://localhost:8080/api/doctors")
+    fetch("https://medsyncaidatabase.onrender.com/api/doctors")
       .then(res => res.json())
       .then(data => setDoctors(Array.isArray(data) ? data : []))
       .catch(err => console.error(err))

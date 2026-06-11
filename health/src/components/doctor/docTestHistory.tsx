@@ -11,7 +11,7 @@ interface MedicalTest {
   resultStatus: string;
 }
 
-const BASE_URL = 'http://localhost:8080';
+const BASE_URL = 'https://medsyncaidatabase.onrender.com';
 
 export const TestHistoryList: React.FC = () => {
   const navigate = useNavigate();

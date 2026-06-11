@@ -33,7 +33,7 @@ export const PatientPrescriptionList: React.FC = () => {
 
     try {
       const res = await fetch(
-        `http://localhost:8080/api/prescriptions/patients-safe/${patientId}`
+        `https://medsyncaidatabase.onrender.com/api/prescriptions/patients-safe/${patientId}`
       );
 
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
@@ -49,7 +49,7 @@ export const PatientPrescriptionList: React.FC = () => {
           if (doctorId) {
             try {
               const docRes = await fetch(
-                `http://localhost:8080/api/doctors/${doctorId}`
+                `https://medsyncaidatabase.onrender.com/api/doctors/${doctorId}`
               );
               if (docRes.ok) {
                 const docData = await docRes.json();

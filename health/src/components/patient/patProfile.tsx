@@ -61,7 +61,7 @@ export const PatientProfile: React.FC = () => {
     if (!userId) { navigate('/'); return; }
     setIsLoading(true);
     try {
-      const res = await axios.get(`http://localhost:8080/api/patients/by-patient-id/${userId}`);
+      const res = await axios.get(`https://medsyncaidatabase.onrender.com/api/patients/by-patient-id/${userId}`);
       const p = res.data;
       const data: PatientData = {
         fullName: p.fullName || '',
@@ -104,7 +104,7 @@ export const PatientProfile: React.FC = () => {
         height: editData.height ? parseInt(editData.height) : null,
         weight: editData.weight ? parseInt(editData.weight) : null,
       };
-      await axios.put(`http://localhost:8080/api/patients/by-patient-id/${userId}`, payload);
+      await axios.put(`https://medsyncaidatabase.onrender.com/api/patients/by-patient-id/${userId}`, payload);
       localStorage.setItem('userName', editData.fullName);
       await loadProfile();
       setIsEditing(false);
@@ -126,7 +126,7 @@ export const PatientProfile: React.FC = () => {
     }
     setPwdLoading(true);
     try {
-      await axios.put('http://localhost:8080/api/patients/change-password', {
+      await axios.put('https://medsyncaidatabase.onrender.com/api/patients/change-password', {
         userId, phone: confirmPhone, email: confirmEmail, newPassword,
       });
       setPwdMessage({ type: 'success', text: 'Password updated successfully!' });
@@ -146,7 +146,7 @@ export const PatientProfile: React.FC = () => {
     if (!doubleConfirm) return;
     setIsDeleting(true);
     try {
-      await axios.delete(`http://localhost:8080/api/patients/${userId}`);
+      await axios.delete(`https://medsyncaidatabase.onrender.com/api/patients/${userId}`);
       localStorage.clear();
       navigate('/');
     } catch (err) {

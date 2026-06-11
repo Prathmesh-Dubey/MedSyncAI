@@ -31,7 +31,7 @@ interface Session {
 }
 
 // ── Config ────────────────────────────────────────────────────
-const API_URL = 'http://localhost:8080/api/chat';
+const API_URL = 'https://medsyncaidatabase.onrender.com/api/chat';
 
 // ── Helpers ───────────────────────────────────────────────────
 function uid(): string {

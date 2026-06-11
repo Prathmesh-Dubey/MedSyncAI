@@ -17,7 +17,7 @@ export const DoctorList: React.FC = () => {
   const navigate = useNavigate();
 
   const fetchDoctors = () => {
-    fetch("http://localhost:8080/api/doctors")
+    fetch("https://medsyncaidatabase.onrender.com/api/doctors")
       .then(res => res.json())
       .then(data => setDoctors(data))
       .catch(err => console.error(err));
@@ -34,7 +34,7 @@ export const DoctorList: React.FC = () => {
 
     if (!confirmDelete) return;
 
-    await fetch(`http://localhost:8080/api/doctors/${id}`, {
+    await fetch(`https://medsyncaidatabase.onrender.com/api/doctors/${id}`, {
       method: "DELETE"
     });
 

@@ -12,7 +12,7 @@ interface TestForm {
   history: string;
 }
 
-const BASE_URL = 'http://localhost:8080';
+const BASE_URL = 'https://medsyncaidatabase.onrender.com';
 
 const initialForm: TestForm = {
   patientId: '',

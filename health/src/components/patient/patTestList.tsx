@@ -34,7 +34,7 @@ export const PatientTestList: React.FC = () => {
     setIsLoading(true);
     setError(false);
     try {
-      const response = await fetch(`http://localhost:8080/api/medical-tests/patients/${patientId}`);
+      const response = await fetch(`https://medsyncaidatabase.onrender.com/api/medical-tests/patients/${patientId}`);
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
       const data = await response.json();
       setTests(Array.isArray(data) ? data : []);

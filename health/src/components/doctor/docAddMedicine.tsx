@@ -13,7 +13,7 @@ interface MedicineForm {
   recordStatus: string;
 }
 
-const baseUrl = 'http://localhost:8080/api/medicines';
+const baseUrl = 'https://medsyncaidatabase.onrender.com/api/medicines';
 
 const initialForm: MedicineForm = {
   medicineName: '',

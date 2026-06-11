@@ -49,7 +49,7 @@ export const DoctorProfile: React.FC = () => {
     if (!doctorId) { navigate('/'); return; }
     setIsLoading(true);
     try {
-      const res = await axios.get(`http://localhost:8080/api/doctors/${doctorId}`);
+      const res = await axios.get(`https://medsyncaidatabase.onrender.com/api/doctors/${doctorId}`);
       const d = res.data;
       const data: DoctorData = {
         name: d.name || '',
@@ -94,7 +94,7 @@ export const DoctorProfile: React.FC = () => {
         consultationFee: editData.consultationFee ? parseFloat(editData.consultationFee) : 0,
         qualification: editData.qualification,
       };
-      const res = await axios.put(`http://localhost:8080/api/doctors/${doctorId}`, payload);
+      const res = await axios.put(`https://medsyncaidatabase.onrender.com/api/doctors/${doctorId}`, payload);
       const updated = res.data;
       const data: DoctorData = {
         ...editData,
@@ -127,7 +127,7 @@ export const DoctorProfile: React.FC = () => {
     }
     setPwdLoading(true);
     try {
-      await axios.post('http://localhost:8080/api/doctors/reset-password', {
+      await axios.post('https://medsyncaidatabase.onrender.com/api/doctors/reset-password', {
         email: profile.email,
         phone: profile.phone,
         newPassword,
@@ -152,7 +152,7 @@ export const DoctorProfile: React.FC = () => {
     if (!doubleConfirm) return;
     setIsDeleting(true);
     try {
-      await axios.delete(`http://localhost:8080/api/doctors/${doctorId}`);
+      await axios.delete(`https://medsyncaidatabase.onrender.com/api/doctors/${doctorId}`);
       localStorage.clear();
       navigate('/');
     } catch (err) {

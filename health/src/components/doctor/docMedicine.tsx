@@ -15,7 +15,7 @@ interface Medicine {
   recordStatus: string;
 }
 
-const baseUrl = 'http://localhost:8080/api/medicines';
+const baseUrl = 'https://medsyncaidatabase.onrender.com/api/medicines';
 
 export const MedicineList: React.FC = () => {
   const navigate = useNavigate();
